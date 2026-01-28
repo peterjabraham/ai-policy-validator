@@ -32,7 +32,7 @@ export async function POST(request) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Anthropic API key not configured" },
+        { error: "Anthropic API key not configured. Set ANTHROPIC_API_KEY in environment." },
         { status: 500 }
       );
     }
@@ -44,50 +44,94 @@ export async function POST(request) {
 For each obligation, determine:
 1. status: "FULL" (fully addressed), "PARTIAL" (partially addressed), or "NOT_MET" (not addressed)
 2. findings: What the policy says (or doesn't say) about this requirement
-3. policy_match: Direct quote from the policy that addresses this (if any)
+3. policy_match: Direct quote from the policy that addresses this (if any), or null
 4. gaps: Array of specific gaps or missing elements
 5. recommendation: Specific action to achieve compliance
 
 Be precise and cite specific policy text where possible. If the policy doesn't mention something, mark it as NOT_MET.
 
-Respond ONLY with a JSON array of assessment objects, no other text. Each object must have:
-{ "obligation_id": "...", "status": "FULL|PARTIAL|NOT_MET", "findings": "...", "policy_match": "..." or null, "gaps": [...], "recommendation": "..." }`;
+IMPORTANT: Respond with ONLY a valid JSON array. No markdown, no explanation, no code fences. Just the raw JSON array starting with [ and ending with ].
+
+Each object in the array must have exactly these fields:
+{ "obligation_id": "...", "status": "FULL" or "PARTIAL" or "NOT_MET", "findings": "...", "policy_match": "..." or null, "gaps": ["..."], "recommendation": "..." }`;
 
     const userPrompt = `POLICY DOCUMENT:
 ${policyContent.slice(0, MAX_TEXT_LENGTH)}
 
 OBLIGATIONS TO ASSESS:
 ${JSON.stringify(
-  obligations.map((o) => ({
-    id: o.obligation_id,
-    title: o.title,
-    description: o.description,
-    strength: o.obligation_strength,
-    what_good_looks_like: o.what_good_looks_like,
-  })),
-  null,
-  2
-)}
+      obligations.map((o) => ({
+        id: o.obligation_id,
+        title: o.title,
+        description: o.description,
+        strength: o.obligation_strength,
+        what_good_looks_like: o.what_good_looks_like,
+      })),
+      null,
+      2
+    )}
 
-Analyse this policy against each obligation and return a JSON array.`;
+Return a JSON array with one assessment object per obligation. Start your response with [ and end with ].`;
 
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 4000,
-      messages: [{ role: "user", content: systemPrompt + "\n\n" + userPrompt }],
-    });
+    let response;
+    try {
+      response = await client.messages.create({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 8000,
+        messages: [{ role: "user", content: systemPrompt + "\n\n" + userPrompt }],
+      });
+    } catch (apiError) {
+      console.error("Anthropic API call failed:", apiError);
+      return NextResponse.json(
+        { error: `Anthropic API error: ${apiError.message}` },
+        { status: 502 }
+      );
+    }
 
     const text =
       response.content?.map((item) => item.text || "").join("") || "";
-    const cleanJson = text.replace(/```json|```/g, "").trim();
+    
+    if (!text) {
+      console.error("Empty response from Anthropic API");
+      return NextResponse.json(
+        { error: "Empty response from AI. Please try again." },
+        { status: 502 }
+      );
+    }
+
+    // More robust JSON extraction
+    let cleanJson = text;
+    
+    // Remove markdown code fences if present
+    cleanJson = cleanJson.replace(/```json\s*/gi, "").replace(/```\s*/g, "");
+    
+    // Try to find JSON array in the response
+    const arrayMatch = cleanJson.match(/\[[\s\S]*\]/);
+    if (arrayMatch) {
+      cleanJson = arrayMatch[0];
+    }
+    
+    cleanJson = cleanJson.trim();
 
     let parsed;
     try {
       parsed = JSON.parse(cleanJson);
-    } catch {
-      console.error("Failed to parse AI response:", cleanJson.slice(0, 500));
+    } catch (parseError) {
+      console.error("Failed to parse AI response. Raw text:", text.slice(0, 1000));
+      console.error("Cleaned JSON attempt:", cleanJson.slice(0, 500));
       return NextResponse.json(
-        { error: "Failed to parse AI analysis response" },
+        { 
+          error: "Failed to parse AI analysis response. The AI returned invalid JSON.",
+          debug: process.env.NODE_ENV === "development" ? text.slice(0, 500) : undefined
+        },
+        { status: 500 }
+      );
+    }
+
+    if (!Array.isArray(parsed)) {
+      console.error("AI response is not an array:", typeof parsed);
+      return NextResponse.json(
+        { error: "AI response was not in expected format (array)." },
         { status: 500 }
       );
     }
@@ -103,7 +147,7 @@ Analyse this policy against each obligation and return a JSON array.`;
         status: aiResult.status || "NOT_MET",
         findings: aiResult.findings || "Not addressed in policy",
         policy_match: aiResult.policy_match || null,
-        gaps: aiResult.gaps || ["No coverage found"],
+        gaps: Array.isArray(aiResult.gaps) ? aiResult.gaps : ["No coverage found"],
         recommendation:
           aiResult.recommendation || "Add policy provisions for this requirement",
       };

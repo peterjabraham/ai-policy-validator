@@ -150,13 +150,12 @@ const CitationPanel = ({ citations, isOpen, onClose }) => {
               </blockquote>
               <div className="flex items-center justify-between">
                 <span
-                  className={`text-xs px-2 py-0.5 rounded ${
-                    source?.binding_strength === "authoritative"
+                  className={`text-xs px-2 py-0.5 rounded ${source?.binding_strength === "authoritative"
                       ? "bg-red-900/30 text-red-400"
                       : source?.binding_strength === "recommended"
-                      ? "bg-amber-900/30 text-amber-400"
-                      : "bg-accent/20 text-accent"
-                  }`}
+                        ? "bg-amber-900/30 text-amber-400"
+                        : "bg-accent/20 text-accent"
+                    }`}
                 >
                   {source?.binding_strength}
                 </span>
@@ -186,31 +185,30 @@ const ObligationCard = ({ obligation, assessment, onShowCitations }) => {
     assessment?.status === "FULL"
       ? "text-green-400"
       : assessment?.status === "PARTIAL"
-      ? "text-amber-400"
-      : assessment?.status === "NOT_MET"
-      ? "text-red-400"
-      : "text-muted";
+        ? "text-amber-400"
+        : assessment?.status === "NOT_MET"
+          ? "text-red-400"
+          : "text-muted";
 
   const iconBgClass =
     assessment?.status === "FULL"
       ? "bg-green-900/30"
       : assessment?.status === "PARTIAL"
-      ? "bg-amber-900/30"
-      : assessment?.status === "NOT_MET"
-      ? "bg-red-900/30"
-      : "bg-secondary";
+        ? "bg-amber-900/30"
+        : assessment?.status === "NOT_MET"
+          ? "bg-red-900/30"
+          : "bg-secondary";
 
   return (
     <div
-      className={`border rounded-lg overflow-hidden ${
-        assessment?.status === "FULL"
+      className={`border rounded-lg overflow-hidden ${assessment?.status === "FULL"
           ? "border-green-800 bg-green-900/10"
           : assessment?.status === "PARTIAL"
-          ? "border-amber-800 bg-amber-900/10"
-          : assessment?.status === "NOT_MET"
-          ? "border-red-800 bg-red-900/10"
-          : "border-border"
-      }`}
+            ? "border-amber-800 bg-amber-900/10"
+            : assessment?.status === "NOT_MET"
+              ? "border-red-800 bg-red-900/10"
+              : "border-border"
+        }`}
     >
       <button
         onClick={() => setExpanded(!expanded)}
@@ -358,10 +356,9 @@ const PolicyInput = ({ onPolicyLoaded, isLoading }) => {
   };
 
   const tabClass = (mode) =>
-    `flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
-      inputMode === mode
-        ? "bg-card text-foreground shadow-sm"
-        : "text-muted hover:text-foreground"
+    `flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${inputMode === mode
+      ? "bg-card text-foreground shadow-sm"
+      : "text-muted hover:text-foreground"
     }`;
 
   return (
@@ -432,11 +429,10 @@ const PolicyInput = ({ onPolicyLoaded, isLoading }) => {
             }}
             onDragLeave={() => setDragActive(false)}
             onDrop={handleDrop}
-            className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-              dragActive
+            className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${dragActive
                 ? "border-accent bg-accent/10"
                 : "border-border hover:border-muted"
-            }`}
+              }`}
           >
             <FileUp className="w-12 h-12 text-muted mx-auto mb-4" />
             <p className="text-foreground mb-2">
@@ -572,21 +568,19 @@ const ProfileWizard = ({ onComplete }) => {
         {[1, 2, 3].map((s) => (
           <React.Fragment key={s}>
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                s === step
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${s === step
                   ? "bg-accent text-black"
                   : s < step
-                  ? "bg-green-600 text-white"
-                  : "bg-secondary text-muted"
-              }`}
+                    ? "bg-green-600 text-white"
+                    : "bg-secondary text-muted"
+                }`}
             >
               {s < step ? <CheckCircle className="w-5 h-5" /> : s}
             </div>
             {s < 3 && (
               <div
-                className={`flex-1 h-1 rounded ${
-                  s < step ? "bg-green-600" : "bg-secondary"
-                }`}
+                className={`flex-1 h-1 rounded ${s < step ? "bg-green-600" : "bg-secondary"
+                  }`}
               />
             )}
           </React.Fragment>
@@ -622,11 +616,10 @@ const ProfileWizard = ({ onComplete }) => {
                 <button
                   key={sector.id}
                   onClick={() => setProfile({ ...profile, sector: sector.id })}
-                  className={`px-4 py-3 rounded-lg border text-left transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
-                    profile.sector === sector.id
+                  className={`px-4 py-3 rounded-lg border text-left transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${profile.sector === sector.id
                       ? "border-accent bg-accent/20 text-accent"
                       : "border-border hover:border-muted text-foreground"
-                  }`}
+                    }`}
                 >
                   {sector.label}
                 </button>
@@ -640,11 +633,10 @@ const ProfileWizard = ({ onComplete }) => {
                 <button
                   key={size}
                   onClick={() => setProfile({ ...profile, size })}
-                  className={`px-4 py-3 rounded-lg border text-center transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
-                    profile.size === size
+                  className={`px-4 py-3 rounded-lg border text-center transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${profile.size === size
                       ? "border-accent bg-accent/20 text-accent"
                       : "border-border hover:border-muted text-foreground"
-                  }`}
+                    }`}
                 >
                   {size} employees
                 </button>
@@ -676,11 +668,10 @@ const ProfileWizard = ({ onComplete }) => {
               <button
                 key={uc.id}
                 onClick={() => handleUseCaseToggle(uc.id)}
-                className={`w-full px-4 py-4 rounded-lg border text-left transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
-                  profile.aiUseCases.includes(uc.id)
+                className={`w-full px-4 py-4 rounded-lg border text-left transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${profile.aiUseCases.includes(uc.id)
                     ? "border-accent bg-accent/20"
                     : "border-border hover:border-muted"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <div>
@@ -688,11 +679,10 @@ const ProfileWizard = ({ onComplete }) => {
                     <div className="text-sm text-muted">{uc.description}</div>
                   </div>
                   <div
-                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      profile.aiUseCases.includes(uc.id)
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${profile.aiUseCases.includes(uc.id)
                         ? "border-accent bg-accent"
                         : "border-muted"
-                    }`}
+                      }`}
                   >
                     {profile.aiUseCases.includes(uc.id) && (
                       <CheckCircle className="w-4 h-4 text-black" />
@@ -751,11 +741,10 @@ const ProfileWizard = ({ onComplete }) => {
               <button
                 key={risk.id}
                 onClick={() => setProfile({ ...profile, riskLevel: risk.id })}
-                className={`w-full px-4 py-4 rounded-lg border text-left transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
-                  profile.riskLevel === risk.id
+                className={`w-full px-4 py-4 rounded-lg border text-left transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${profile.riskLevel === risk.id
                     ? "border-accent bg-accent/20"
                     : "border-border hover:border-muted"
-                }`}
+                  }`}
               >
                 <div className="font-medium text-foreground">{risk.label}</div>
                 <div className="text-sm text-muted">{risk.description}</div>
@@ -990,8 +979,7 @@ export default function AIPolicyValidator() {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(169, 182, 203);
     doc.text(
-      `${profile?.sector?.replace(/_/g, " ") || "Sector"} - ${
-        profile?.size || ""
+      `${profile?.sector?.replace(/_/g, " ") || "Sector"} - ${profile?.size || ""
       } employees`,
       margin,
       yPos
@@ -1017,8 +1005,8 @@ export default function AIPolicyValidator() {
       complianceStats.score >= 70
         ? [34, 197, 94]
         : complianceStats.score >= 40
-        ? [245, 158, 11]
-        : [239, 68, 68];
+          ? [245, 158, 11]
+          : [239, 68, 68];
     doc.setFillColor(...scoreColor);
     doc.circle(margin + 30, yPos + 25, 18, "F");
     doc.setTextColor(255, 255, 255);
