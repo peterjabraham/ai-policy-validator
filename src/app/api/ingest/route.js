@@ -1,22 +1,29 @@
 import { NextResponse } from "next/server";
 import mammoth from "mammoth";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist/legacy/build/pdf.mjs";
 
-// Disable worker to avoid canvas issues in serverless
-GlobalWorkerOptions.workerSrc = "";
-
-// Extract text from PDF using pdfjs-dist directly
+// Extract text from PDF using pdfjs-dist (dynamically imported to avoid startup warnings)
 async function parsePdf(buffer) {
+  // Dynamic import to prevent canvas warnings at container startup
+  const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
+  const { getDocument, GlobalWorkerOptions } = pdfjsLib;
+  
+  // Disable worker to avoid canvas issues in serverless
+  GlobalWorkerOptions.workerSrc = "";
+
   const uint8Array = new Uint8Array(buffer);
   const loadingTask = getDocument({
     data: uint8Array,
     useSystemFonts: true,
     disableFontFace: true,
+    // Disable canvas-based rendering entirely
+    isEvalSupported: false,
+    disableAutoFetch: true,
+    disableStream: true,
   });
-  
+
   const pdf = await loadingTask.promise;
   const textParts = [];
-  
+
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
@@ -25,7 +32,7 @@ async function parsePdf(buffer) {
       .join(" ");
     textParts.push(pageText);
   }
-  
+
   return { text: textParts.join("\n\n") };
 }
 
