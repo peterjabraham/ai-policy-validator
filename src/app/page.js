@@ -939,6 +939,19 @@ export default function AIPolicyValidator() {
     const contentWidth = pageWidth - margin * 2;
     let yPos = margin;
 
+    // Color constants - using black for body text for better print readability
+    const colors = {
+      black: [0, 0, 0],
+      darkGray: [60, 60, 60],
+      mediumGray: [100, 100, 100],
+      white: [255, 255, 255],
+      accent: [91, 141, 239],
+      green: [34, 197, 94],
+      amber: [245, 158, 11],
+      red: [239, 68, 68],
+      cardBg: [245, 247, 250],
+    };
+
     const checkPageBreak = (neededSpace = 30) => {
       if (yPos + neededSpace > pageHeight - margin) {
         doc.addPage();
@@ -948,20 +961,89 @@ export default function AIPolicyValidator() {
       return false;
     };
 
-    const addWrappedText = (text, maxWidth, lineHeight = 6) => {
+    const addWrappedText = (text, maxWidth, lineHeight = 5) => {
       const lines = doc.splitTextToSize(text, maxWidth);
-      lines.forEach(() => {
+      lines.forEach((line) => {
         checkPageBreak(lineHeight);
-        doc.text(lines.shift(), margin, yPos);
+        doc.text(line, margin, yPos);
         yPos += lineHeight;
       });
       return yPos;
     };
 
+    // Helper to get citation URLs for an obligation
+    const getCitationLinks = (item) => {
+      const links = [];
+      if (item.source_citations && Array.isArray(item.source_citations)) {
+        item.source_citations.forEach((citation) => {
+          const source = regulatorySources[citation.source_id];
+          if (source && source.url) {
+            links.push({
+              title: source.title,
+              issuer: source.issuing_body,
+              url: source.url,
+            });
+          }
+        });
+      }
+      return links;
+    };
+
+    // Helper to get example actions based on obligation category
+    const getExampleActions = (item) => {
+      const examples = {
+        risk_assessment: [
+          "Complete ICO's DPIA template: ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-impact-assessments/",
+          "Document AI-specific risks: bias, accuracy drift, explainability gaps",
+          "Schedule quarterly DPIA reviews when processing changes",
+        ],
+        transparency: [
+          "Add AI disclosure to privacy notice: 'We use AI tools to [specific function]'",
+          "Create candidate FAQ: 'How AI is used in our recruitment process'",
+          "Include opt-out mechanism where legally required",
+        ],
+        fairness: [
+          "Request bias audit results from AI vendor across protected characteristics",
+          "Implement human review for AI recommendations before final decisions",
+          "Document fairness testing methodology and results",
+        ],
+        governance: [
+          "Create AI vendor checklist covering: data roles, bias testing, security, data minimisation",
+          "Include AI-specific clauses in vendor contracts",
+          "Request SOC 2 or ISO 27001 certification from vendors",
+        ],
+        legal_compliance: [
+          "Document lawful basis in Record of Processing Activities (ROPA)",
+          "For legitimate interests, complete a Legitimate Interests Assessment (LIA)",
+          "Review and update lawful basis when AI processing scope changes",
+        ],
+        human_oversight: [
+          "Designate named individuals responsible for AI oversight",
+          "Create escalation process for AI decision appeals",
+          "Train staff on when and how to override AI recommendations",
+        ],
+        data_quality: [
+          "Implement data validation checks before AI processing",
+          "Schedule regular accuracy testing against ground truth",
+          "Document data sources and quality assurance processes",
+        ],
+        security: [
+          "Implement access controls for AI systems and training data",
+          "Enable audit logging for AI decisions",
+          "Include AI systems in security incident response plans",
+        ],
+      };
+      return examples[item.category] || [
+        "Review ICO guidance on AI and data protection",
+        "Consult with your Data Protection Officer",
+        "Document your compliance approach and evidence",
+      ];
+    };
+
     // Header
-    doc.setFillColor(91, 141, 239);
+    doc.setFillColor(...colors.accent);
     doc.rect(0, 0, pageWidth, 45, "F");
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(...colors.white);
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
     doc.text("UK AI Policy Compliance Report", margin, 28);
@@ -969,24 +1051,23 @@ export default function AIPolicyValidator() {
     doc.setFont("helvetica", "normal");
     doc.text("ICO - DSIT - CDEI Regulatory Assessment", margin, 38);
 
-    yPos = 65;
-    doc.setTextColor(230, 240, 255);
+    yPos = 60;
+    doc.setTextColor(...colors.black);
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.text(profile?.orgName || "Organisation", margin, yPos);
-    yPos += 8;
+    yPos += 7;
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(169, 182, 203);
+    doc.setTextColor(...colors.darkGray);
     doc.text(
-      `${profile?.sector?.replace(/_/g, " ") || "Sector"} - ${profile?.size || ""
-      } employees`,
+      `${profile?.sector?.replace(/_/g, " ") || "Sector"} | ${profile?.size || ""} employees`,
       margin,
       yPos
     );
-    yPos += 6;
+    yPos += 5;
     doc.text(`Policy Source: ${policySource || "Not specified"}`, margin, yPos);
-    yPos += 6;
+    yPos += 5;
     doc.text(
       `Assessment Date: ${new Date().toLocaleDateString("en-GB", {
         day: "numeric",
@@ -998,44 +1079,44 @@ export default function AIPolicyValidator() {
     );
 
     // Score box
-    yPos += 20;
-    doc.setFillColor(27, 36, 50);
-    doc.roundedRect(margin, yPos, contentWidth, 50, 3, 3, "F");
+    yPos += 15;
+    doc.setFillColor(...colors.cardBg);
+    doc.roundedRect(margin, yPos, contentWidth, 45, 3, 3, "F");
     const scoreColor =
       complianceStats.score >= 70
-        ? [34, 197, 94]
+        ? colors.green
         : complianceStats.score >= 40
-          ? [245, 158, 11]
-          : [239, 68, 68];
+          ? colors.amber
+          : colors.red;
     doc.setFillColor(...scoreColor);
-    doc.circle(margin + 30, yPos + 25, 18, "F");
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(18);
+    doc.circle(margin + 28, yPos + 22, 16, "F");
+    doc.setTextColor(...colors.white);
+    doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
-    doc.text(`${complianceStats.score}%`, margin + 30, yPos + 28, {
+    doc.text(`${complianceStats.score}%`, margin + 28, yPos + 25, {
       align: "center",
     });
-    doc.setTextColor(230, 240, 255);
+    doc.setTextColor(...colors.black);
     doc.setFontSize(12);
-    doc.text("Compliance Score", margin + 60, yPos + 15);
+    doc.text("Compliance Score", margin + 55, yPos + 15);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(169, 182, 203);
-    doc.text(`${complianceStats.total} obligations assessed`, margin + 60, yPos + 25);
+    doc.setTextColor(...colors.darkGray);
+    doc.text(`${complianceStats.total} obligations assessed`, margin + 55, yPos + 23);
     doc.setFontSize(10);
-    doc.setTextColor(34, 197, 94);
-    doc.text(`${complianceStats.full} Compliant`, margin + 60, yPos + 38);
-    doc.setTextColor(245, 158, 11);
-    doc.text(`${complianceStats.partial} Partial`, margin + 110, yPos + 38);
-    doc.setTextColor(239, 68, 68);
-    doc.text(`${complianceStats.notMet} Gaps`, margin + 155, yPos + 38);
+    doc.setTextColor(...colors.green);
+    doc.text(`${complianceStats.full} Compliant`, margin + 55, yPos + 35);
+    doc.setTextColor(...colors.amber);
+    doc.text(`${complianceStats.partial} Partial`, margin + 100, yPos + 35);
+    doc.setTextColor(...colors.red);
+    doc.text(`${complianceStats.notMet} Gaps`, margin + 140, yPos + 35);
 
     // Detailed findings pages
     doc.addPage();
     yPos = margin;
-    doc.setFillColor(91, 141, 239);
+    doc.setFillColor(...colors.accent);
     doc.rect(0, 0, pageWidth, 25, "F");
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(...colors.white);
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.text("Detailed Assessment Findings", margin, 17);
@@ -1043,14 +1124,14 @@ export default function AIPolicyValidator() {
 
     const statusOrder = ["NOT_MET", "PARTIAL", "FULL"];
     const statusLabels = {
-      NOT_MET: "Gaps Identified",
-      PARTIAL: "Partially Compliant",
+      NOT_MET: "Gaps Identified - Action Required",
+      PARTIAL: "Partially Compliant - Improvements Needed",
       FULL: "Fully Compliant",
     };
     const statusColors = {
-      NOT_MET: [239, 68, 68],
-      PARTIAL: [245, 158, 11],
-      FULL: [34, 197, 94],
+      NOT_MET: colors.red,
+      PARTIAL: colors.amber,
+      FULL: colors.green,
     };
 
     statusOrder.forEach((status) => {
@@ -1059,74 +1140,199 @@ export default function AIPolicyValidator() {
       checkPageBreak(40);
       doc.setFillColor(...statusColors[status]);
       doc.rect(margin, yPos, 4, 8, "F");
-      doc.setTextColor(230, 240, 255);
+      doc.setTextColor(...colors.black);
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
       doc.text(`${statusLabels[status]} (${items.length})`, margin + 8, yPos + 6);
       yPos += 15;
 
       items.forEach((item) => {
-        checkPageBreak(50);
-        doc.setFillColor(27, 36, 50);
+        checkPageBreak(60);
+        doc.setFillColor(...colors.cardBg);
         doc.roundedRect(margin, yPos, contentWidth, 8, 1, 1, "F");
         doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
-        doc.setTextColor(230, 240, 255);
+        doc.setTextColor(...colors.black);
         doc.text(item.title, margin + 3, yPos + 5.5);
         yPos += 12;
 
         if (item.findings) {
           doc.setFontSize(9);
           doc.setFont("helvetica", "bold");
-          doc.setTextColor(169, 182, 203);
+          doc.setTextColor(...colors.darkGray);
           doc.text("Findings:", margin, yPos);
           yPos += 5;
           doc.setFont("helvetica", "normal");
-          doc.setTextColor(230, 240, 255);
-          addWrappedText(item.findings, contentWidth, 5);
+          doc.setTextColor(...colors.black);
+          addWrappedText(item.findings, contentWidth, 4);
+          yPos += 2;
         }
 
         if (item.gaps && item.gaps.length > 0 && item.status !== "FULL") {
-          checkPageBreak(15);
+          checkPageBreak(20);
           doc.setFontSize(9);
           doc.setFont("helvetica", "bold");
-          doc.setTextColor(239, 68, 68);
-          doc.text("Gaps:", margin, yPos);
+          doc.setTextColor(...colors.red);
+          doc.text("Gaps Identified:", margin, yPos);
           yPos += 5;
           doc.setFont("helvetica", "normal");
+          doc.setTextColor(...colors.black);
           item.gaps.slice(0, 3).forEach((gap) => {
-            checkPageBreak(6);
-            doc.setTextColor(169, 182, 203);
-            doc.text(`- ${gap}`, margin + 3, yPos);
-            yPos += 5;
+            checkPageBreak(5);
+            const gapLines = doc.splitTextToSize(`• ${gap}`, contentWidth - 5);
+            gapLines.forEach((line) => {
+              doc.text(line, margin + 3, yPos);
+              yPos += 4;
+            });
           });
+          yPos += 2;
         }
 
         if (item.recommendation && item.status !== "FULL") {
-          checkPageBreak(15);
+          checkPageBreak(25);
           doc.setFontSize(9);
           doc.setFont("helvetica", "bold");
-          doc.setTextColor(34, 197, 94);
+          doc.setTextColor(...colors.green);
           doc.text("Recommendation:", margin, yPos);
           yPos += 5;
           doc.setFont("helvetica", "normal");
-          doc.setTextColor(230, 240, 255);
-          addWrappedText(item.recommendation, contentWidth, 5);
+          doc.setTextColor(...colors.black);
+          addWrappedText(item.recommendation, contentWidth, 4);
+          yPos += 3;
+
+          // Add example actions
+          const examples = getExampleActions(item);
+          if (examples.length > 0) {
+            checkPageBreak(20);
+            doc.setFontSize(8);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(...colors.accent);
+            doc.text("Example Actions:", margin, yPos);
+            yPos += 4;
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(...colors.darkGray);
+            examples.slice(0, 2).forEach((example) => {
+              checkPageBreak(8);
+              const exLines = doc.splitTextToSize(`→ ${example}`, contentWidth - 5);
+              exLines.forEach((line) => {
+                doc.text(line, margin + 3, yPos);
+                yPos += 3.5;
+              });
+            });
+            yPos += 2;
+          }
+
+          // Add citation links
+          const citations = getCitationLinks(item);
+          if (citations.length > 0) {
+            checkPageBreak(15);
+            doc.setFontSize(8);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(...colors.accent);
+            doc.text("Reference Guidance:", margin, yPos);
+            yPos += 4;
+            doc.setFont("helvetica", "normal");
+            const uniqueCitations = citations.filter(
+              (c, i, arr) => arr.findIndex((x) => x.url === c.url) === i
+            );
+            uniqueCitations.slice(0, 2).forEach((citation) => {
+              checkPageBreak(8);
+              doc.setTextColor(...colors.darkGray);
+              doc.text(`${citation.issuer}: ${citation.title}`, margin + 3, yPos);
+              yPos += 3.5;
+              doc.setTextColor(...colors.accent);
+              // Truncate long URLs for display
+              const displayUrl = citation.url.length > 70 
+                ? citation.url.substring(0, 67) + "..." 
+                : citation.url;
+              doc.textWithLink(displayUrl, margin + 3, yPos, { url: citation.url });
+              yPos += 4;
+            });
+          }
         }
 
-        yPos += 10;
+        yPos += 8;
       });
       yPos += 5;
     });
 
-    // Footer
+    // Resources page
+    doc.addPage();
+    yPos = margin;
+    doc.setFillColor(...colors.accent);
+    doc.rect(0, 0, pageWidth, 25, "F");
+    doc.setTextColor(...colors.white);
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("Key Resources & Templates", margin, 17);
+    yPos = 40;
+
+    doc.setTextColor(...colors.black);
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("Essential UK AI Compliance Resources", margin, yPos);
+    yPos += 10;
+
+    const keyResources = [
+      {
+        title: "ICO DPIA Template",
+        desc: "Official template for Data Protection Impact Assessments",
+        url: "https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-impact-assessments/",
+      },
+      {
+        title: "ICO AI and Data Protection Guidance",
+        desc: "Comprehensive guide on applying UK GDPR to AI systems",
+        url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/",
+      },
+      {
+        title: "ICO AI Recruitment Audit Findings",
+        desc: "Key findings and recommendations from ICO's recruitment AI audits",
+        url: "https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-in-recruitment/",
+      },
+      {
+        title: "DSIT Responsible AI in Recruitment Guide",
+        desc: "Government guidance on responsible AI use in hiring",
+        url: "https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment",
+      },
+      {
+        title: "CDEI AI Assurance Techniques",
+        desc: "Framework for AI testing, audit and assurance",
+        url: "https://www.gov.uk/guidance/portfolio-of-ai-assurance-techniques",
+      },
+      {
+        title: "UK AI Regulatory Principles",
+        desc: "Cross-sector principles for AI governance",
+        url: "https://www.gov.uk/government/publications/implementing-the-uks-ai-regulatory-principles-initial-guidance-for-regulators",
+      },
+    ];
+
+    keyResources.forEach((resource) => {
+      checkPageBreak(18);
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...colors.black);
+      doc.text(resource.title, margin, yPos);
+      yPos += 4;
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(...colors.darkGray);
+      doc.text(resource.desc, margin, yPos);
+      yPos += 4;
+      doc.setTextColor(...colors.accent);
+      const displayUrl = resource.url.length > 80 
+        ? resource.url.substring(0, 77) + "..." 
+        : resource.url;
+      doc.textWithLink(displayUrl, margin, yPos, { url: resource.url });
+      yPos += 8;
+    });
+
+    // Footer on all pages
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
       doc.setFontSize(8);
-      doc.setTextColor(169, 182, 203);
+      doc.setTextColor(...colors.mediumGray);
       doc.text(
-        `UK AI Policy Validator - Page ${i} of ${totalPages}`,
+        `UK AI Policy Validator - Page ${i} of ${totalPages} - Generated ${new Date().toLocaleDateString("en-GB")}`,
         pageWidth / 2,
         pageHeight - 10,
         { align: "center" }

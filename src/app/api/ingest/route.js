@@ -8,8 +8,8 @@ async function parsePdf(buffer) {
   const uint8Array = new Uint8Array(buffer);
   const result = await extractText(uint8Array);
   // result.text is an array of strings (one per page), join them
-  const text = Array.isArray(result.text) 
-    ? result.text.join("\n\n") 
+  const text = Array.isArray(result.text)
+    ? result.text.join("\n\n")
     : (result.text || "");
   return { text };
 }
