@@ -1,0 +1,362 @@
+{
+  "canon_version": "2025-01",
+  "last_updated": "2025-01-27",
+  "obligations": [
+    {
+      "obligation_id": "OBL-DPIA-RECRUIT-001",
+      "title": "DPIA for Recruitment AI",
+      "description": "For any AI system used to profile, score, or rank job applicants in a way that may significantly affect their opportunities, the organisation must complete and maintain a Data Protection Impact Assessment (DPIA) before deployment and throughout the lifecycle.",
+      "requirement_type": "legal",
+      "obligation_strength": "must",
+      "category": "risk_assessment",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "profiling", "automated_decision_making"],
+        "data_types": ["personal_data", "special_category"],
+        "risk_level": ["high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S2",
+          "quote": "You must carry out a DPIA before you begin any type of processing that is likely to result in a high risk.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S1",
+          "quote": "Employers must complete a DPIA before integrating AI in recruitment.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "DSIT-HR-AI-2024",
+          "section_id": "DSIT-HR-AI-2024-S2",
+          "quote": "You must complete a DPIA for the AI system.",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-TRANSPARENCY-RECRUIT-001", "OBL-FAIRNESS-RECRUIT-001"],
+      "control_suggestions": ["CTRL-DPIA-WORKFLOW", "CTRL-DPIA-TEMPLATE"],
+      "maturity_levels": {
+        "baseline": "DPIA completed before deployment",
+        "enhanced": "DPIA at procurement stage with regular reviews",
+        "advanced": "Continuous DPIA with automated risk monitoring"
+      }
+    },
+    {
+      "obligation_id": "OBL-TRANSPARENCY-RECRUIT-001",
+      "title": "Transparency for Recruitment AI",
+      "description": "Candidates must be informed about the use of AI in recruitment processes, including meaningful information about the logic involved and the significance of the processing.",
+      "requirement_type": "legal",
+      "obligation_strength": "must",
+      "category": "transparency",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "profiling"],
+        "data_types": ["personal_data"],
+        "risk_level": ["medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S4",
+          "quote": "You must provide meaningful information about the logic involved in automated decision-making.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "ICO-RECRUIT-QUESTIONS-2024",
+          "section_id": "ICO-RECRUIT-QUESTIONS-2024-S1",
+          "quote": "How will you inform candidates about the use of AI?",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-DPIA-RECRUIT-001"],
+      "control_suggestions": ["CTRL-CANDIDATE-NOTICE"],
+      "maturity_levels": {
+        "baseline": "Basic privacy notice mentions AI use",
+        "enhanced": "Detailed explanation of AI logic and impact",
+        "advanced": "Interactive explanations with specific decision factors"
+      }
+    },
+    {
+      "obligation_id": "OBL-FAIRNESS-RECRUIT-001",
+      "title": "Fairness and Non-Discrimination in Recruitment AI",
+      "description": "AI recruitment systems must not unfairly discriminate against protected groups. Organisations should test for bias and take steps to mitigate unfair outcomes.",
+      "requirement_type": "legal",
+      "obligation_strength": "must",
+      "category": "fairness",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "profiling", "automated_decision_making"],
+        "data_types": ["personal_data", "special_category"],
+        "risk_level": ["medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S3",
+          "quote": "You must process personal data fairly. Fairness means you should only handle personal data in ways people would reasonably expect.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S1",
+          "quote": "Concerns about unfair exclusion, inference of protected characteristics.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "DSIT-HR-AI-2024",
+          "section_id": "DSIT-HR-AI-2024-S3",
+          "quote": "Use assurance mechanisms like DPIAs to address fairness, transparency, and accountability.",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-DPIA-RECRUIT-001", "OBL-BIAS-TESTING-001"],
+      "control_suggestions": ["CTRL-BIAS-TESTING", "CTRL-FAIRNESS-REVIEW"],
+      "maturity_levels": {
+        "baseline": "Documented fairness considerations in DPIA",
+        "enhanced": "Regular bias testing with defined thresholds",
+        "advanced": "Continuous fairness monitoring with automated alerts"
+      }
+    },
+    {
+      "obligation_id": "OBL-VENDOR-DD-RECRUIT-001",
+      "title": "Vendor Due Diligence for Recruitment AI",
+      "description": "Before contracting with AI recruitment tool vendors, organisations must conduct appropriate due diligence including clarifying data protection roles, requesting evidence of bias testing, and confirming data minimisation practices.",
+      "requirement_type": "regulatory",
+      "obligation_strength": "should",
+      "category": "governance",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai"],
+        "data_types": ["personal_data"],
+        "risk_level": ["medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S2",
+          "quote": "Clarify controller/processor roles and include this in contracts. Ask vendors for DPIA or privacy risk assessment. Request bias testing results and accuracy metrics.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "ICO-RECRUIT-QUESTIONS-2024",
+          "section_id": "ICO-RECRUIT-QUESTIONS-2024-S1",
+          "quote": "Have you completed a DPIA? What is your lawful basis for this processing?",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-DPIA-RECRUIT-001"],
+      "control_suggestions": ["CTRL-VENDOR-CHECKLIST"],
+      "maturity_levels": {
+        "baseline": "Basic vendor questionnaire",
+        "enhanced": "Structured due diligence with evidence requirements",
+        "advanced": "Continuous vendor monitoring and contractual audit rights"
+      }
+    },
+    {
+      "obligation_id": "OBL-LAWFUL-BASIS-001",
+      "title": "Lawful Basis for AI Processing",
+      "description": "Organisations must identify and document a lawful basis for processing personal data through AI systems before processing begins.",
+      "requirement_type": "legal",
+      "obligation_strength": "must",
+      "category": "data_protection",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "customer_support", "credit_decisioning", "fraud_detection", "automated_decision_making", "profiling"],
+        "data_types": ["personal_data", "special_category"],
+        "risk_level": ["low", "medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S2",
+          "quote": "You must identify a lawful basis before you begin processing personal data.",
+          "relevance": "primary"
+        }
+      ],
+      "related_obligations": ["OBL-DPIA-RECRUIT-001"],
+      "control_suggestions": ["CTRL-LAWFUL-BASIS-REGISTER"],
+      "maturity_levels": {
+        "baseline": "Lawful basis documented for each AI system",
+        "enhanced": "Detailed lawful basis analysis with alternative bases considered",
+        "advanced": "Dynamic lawful basis assessment with legal review"
+      }
+    },
+    {
+      "obligation_id": "OBL-GOVERNANCE-001",
+      "title": "AI Governance Structure",
+      "description": "Organisations should establish clear governance structures for AI, including defined roles and responsibilities, oversight committees, and escalation procedures.",
+      "requirement_type": "best_practice",
+      "obligation_strength": "should",
+      "category": "governance",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "customer_support", "credit_decisioning", "fraud_detection", "automated_decision_making"],
+        "data_types": ["personal_data"],
+        "risk_level": ["medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S5",
+          "quote": "You must implement appropriate technical and organisational measures to demonstrate compliance.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "DSIT-PRINCIPLES-2024",
+          "section_id": "DSIT-PRINCIPLES-2024-S4",
+          "quote": "Clear lines of accountability for AI outcomes.",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": [],
+      "control_suggestions": ["CTRL-AI-COMMITTEE", "CTRL-RACI-MATRIX"],
+      "maturity_levels": {
+        "baseline": "Named AI lead with basic responsibilities",
+        "enhanced": "Cross-functional AI committee with defined charter",
+        "advanced": "Board-level AI oversight with regular reporting"
+      }
+    },
+    {
+      "obligation_id": "OBL-BIAS-TESTING-001",
+      "title": "Bias Testing for AI Systems",
+      "description": "AI systems that make or influence decisions about individuals should be tested for bias before deployment and monitored for fairness over time.",
+      "requirement_type": "best_practice",
+      "obligation_strength": "should",
+      "category": "fairness",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "credit_decisioning", "automated_decision_making", "profiling"],
+        "data_types": ["personal_data", "special_category"],
+        "risk_level": ["medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S2",
+          "quote": "Request bias testing results and accuracy metrics.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "CDEI-ASSURANCE-2023",
+          "section_id": "CDEI-ASSURANCE-2023-S2",
+          "quote": "Regular bias testing helps ensure AI systems treat all groups fairly.",
+          "relevance": "reinforcing"
+        },
+        {
+          "source_id": "DSIT-HR-AI-2024",
+          "section_id": "DSIT-HR-AI-2024-S3",
+          "quote": "Consider independent bias audits for high-risk systems.",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-FAIRNESS-RECRUIT-001"],
+      "control_suggestions": ["CTRL-BIAS-TESTING-PROCEDURE"],
+      "maturity_levels": {
+        "baseline": "One-time bias testing before deployment",
+        "enhanced": "Periodic bias testing with defined metrics",
+        "advanced": "Continuous bias monitoring with automated remediation"
+      }
+    },
+    {
+      "obligation_id": "OBL-HUMAN-OVERSIGHT-001",
+      "title": "Human Oversight of AI Decisions",
+      "description": "Significant decisions made or influenced by AI should have appropriate human oversight, including the ability to review, intervene, and override AI outputs.",
+      "requirement_type": "legal",
+      "obligation_strength": "must",
+      "category": "human_oversight",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "credit_decisioning", "automated_decision_making"],
+        "data_types": ["personal_data"],
+        "risk_level": ["high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S2",
+          "quote": "Article 22 rights apply to solely automated decision-making with legal or similarly significant effects.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "DSIT-PRINCIPLES-2024",
+          "section_id": "DSIT-PRINCIPLES-2024-S5",
+          "quote": "Ability to challenge AI decisions.",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-GOVERNANCE-001"],
+      "control_suggestions": ["CTRL-HUMAN-REVIEW-PROCESS"],
+      "maturity_levels": {
+        "baseline": "Human review available on request",
+        "enhanced": "Mandatory human review for high-impact decisions",
+        "advanced": "Real-time human-in-the-loop for all significant decisions"
+      }
+    },
+    {
+      "obligation_id": "OBL-DOCUMENTATION-001",
+      "title": "AI System Documentation",
+      "description": "Organisations should maintain documentation about AI systems including purpose, data used, logic, limitations, and risk assessments.",
+      "requirement_type": "best_practice",
+      "obligation_strength": "should",
+      "category": "documentation",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "customer_support", "credit_decisioning", "fraud_detection", "automated_decision_making"],
+        "data_types": ["personal_data"],
+        "risk_level": ["medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S5",
+          "quote": "You must implement appropriate technical and organisational measures to demonstrate compliance.",
+          "relevance": "primary"
+        },
+        {
+          "source_id": "CDEI-ASSURANCE-2023",
+          "section_id": "CDEI-ASSURANCE-2023-S3",
+          "quote": "Model cards provide transparency about AI system capabilities and limitations.",
+          "relevance": "reinforcing"
+        }
+      ],
+      "related_obligations": ["OBL-GOVERNANCE-001"],
+      "control_suggestions": ["CTRL-AI-REGISTER", "CTRL-MODEL-CARDS"],
+      "maturity_levels": {
+        "baseline": "Basic AI inventory",
+        "enhanced": "Detailed model cards for each AI system",
+        "advanced": "Living documentation with version control and change tracking"
+      }
+    },
+    {
+      "obligation_id": "OBL-TRAINING-001",
+      "title": "AI Training and Awareness",
+      "description": "Staff who use or are affected by AI systems should receive appropriate training on how to use AI tools responsibly, check for errors, and follow organisational policies.",
+      "requirement_type": "best_practice",
+      "obligation_strength": "should",
+      "category": "training",
+      "applies_when": {
+        "sectors": [],
+        "use_cases": ["recruitment_ai", "customer_support", "credit_decisioning", "internal_productivity"],
+        "data_types": ["personal_data"],
+        "risk_level": ["low", "medium", "high"]
+      },
+      "source_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S5",
+          "quote": "Staff should understand their responsibilities when using AI systems.",
+          "relevance": "primary"
+        }
+      ],
+      "related_obligations": ["OBL-GOVERNANCE-001"],
+      "control_suggestions": ["CTRL-AI-TRAINING-PROGRAMME"],
+      "maturity_levels": {
+        "baseline": "Basic AI awareness training",
+        "enhanced": "Role-specific AI training with assessments",
+        "advanced": "Continuous learning programme with certification"
+      }
+    }
+  ]
+}
