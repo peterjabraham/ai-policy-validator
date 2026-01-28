@@ -1,0 +1,236 @@
+{
+  "assessment_id": "ASSESS-ACME-2025-001",
+  "org_id": "acme-corp-2025",
+  "policy_id": "POL-ACME-2024-001",
+  "assessed_at": "2025-01-27T14:30:00Z",
+  "assessor": "UK AI Policy Validator v1.0",
+  "overall_status": "partial_compliance",
+  "compliance_score": 0.54,
+  "summary": {
+    "total_obligations": 8,
+    "fully_met": 2,
+    "partially_met": 3,
+    "not_met": 3,
+    "not_applicable": 0
+  },
+  "gap_analysis": [
+    {
+      "obligation_id": "OBL-DPIA-RECRUIT-001",
+      "obligation_title": "DPIA for Recruitment AI",
+      "status": "PARTIAL",
+      "risk_level": "critical",
+      "policy_element_ids": ["PE-003"],
+      "findings": "Policy mentions impact assessments but does not specifically require Data Protection Impact Assessments (DPIAs). Critical gap given that CV screening system is high-risk processing under UK GDPR. No evidence of DPIA being completed for current recruitment AI system.",
+      "recommendations": [
+        "Replace generic 'impact assessment' language with explicit DPIA requirement",
+        "Specify that DPIAs must be completed before procurement/deployment",
+        "Add trigger criteria: 'any AI system that profiles, scores, or ranks individuals'",
+        "Include ICO consultation procedure for residual high risks",
+        "Urgently complete a DPIA for the existing TalentAI recruitment system"
+      ],
+      "suggested_clause": "Before procuring or deploying any AI system that profiles, scores, or ranks job applicants, we will complete a Data Protection Impact Assessment (DPIA) to identify and mitigate privacy and fairness risks. The DPIA will be completed at the earliest possible stage (typically during procurement), updated when the system, data, or use changes, and retained as part of our accountability records. Where the DPIA identifies high risks that cannot be mitigated, we will not deploy the system until we have consulted the ICO or an alternative solution is found.",
+      "evidence_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S2",
+          "quote": "You must carry out a DPIA before you begin any type of processing that is likely to result in a high risk."
+        },
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S1",
+          "quote": "Employers must complete a DPIA before integrating AI in recruitment."
+        },
+        {
+          "source_id": "DSIT-HR-AI-2024",
+          "section_id": "DSIT-HR-AI-2024-S2",
+          "quote": "You must complete a DPIA for the AI system."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-TRANSPARENCY-RECRUIT-001",
+      "obligation_title": "Transparency for Recruitment AI",
+      "status": "PARTIAL",
+      "risk_level": "high",
+      "policy_element_ids": ["PE-004"],
+      "findings": "Policy commits to informing candidates about AI use and including information in privacy notices. However, it does not specify the requirement to provide 'meaningful information about the logic involved' as required by UK GDPR Article 22.",
+      "recommendations": [
+        "Add explicit requirement to explain 'the logic involved' in AI decisions",
+        "Specify that explanations must cover 'significance and envisaged consequences'",
+        "Define what 'meaningful information' includes for recruitment AI context"
+      ],
+      "suggested_clause": "Candidates will be provided with meaningful information about the use of AI in our recruitment process, including the logic involved in automated processing and the significance and envisaged consequences for the candidate. This information will be provided at the point of application and will explain which stages use AI, what factors are considered, and how decisions can be challenged.",
+      "evidence_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S4",
+          "quote": "You must provide meaningful information about the logic involved in automated decision-making."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-FAIRNESS-RECRUIT-001",
+      "obligation_title": "Fairness in Recruitment AI",
+      "status": "PARTIAL",
+      "risk_level": "high",
+      "policy_element_ids": ["PE-005"],
+      "findings": "Policy includes non-discrimination statement but lacks operational controls. No mention of bias testing, monitoring, or mitigation procedures. ICO audits have specifically highlighted concerns about AI recruitment tools inferring protected characteristics.",
+      "recommendations": [
+        "Add requirement for pre-deployment bias testing",
+        "Specify ongoing fairness monitoring procedures",
+        "Define bias thresholds and remediation procedures",
+        "Consider independent bias audit for high-risk systems"
+      ],
+      "suggested_clause": "Before deployment and periodically thereafter, AI recruitment systems will be tested for bias against protected characteristics. Where bias is detected, the system will not be deployed (or will be suspended) until mitigation measures are implemented. Bias testing results will be documented and retained.",
+      "evidence_citations": [
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S1",
+          "quote": "Concerns about unfair exclusion, inference of protected characteristics."
+        },
+        {
+          "source_id": "CDEI-ASSURANCE-2023",
+          "section_id": "CDEI-ASSURANCE-2023-S2",
+          "quote": "Regular bias testing helps ensure AI systems treat all groups fairly."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-VENDOR-DD-001",
+      "obligation_title": "Vendor Due Diligence",
+      "status": "NOT_MET",
+      "risk_level": "high",
+      "policy_element_ids": [],
+      "findings": "No policy coverage found for vendor due diligence. The organisation uses TalentAI Ltd for recruitment AI but there is no documented due diligence process, no evidence of reviewing vendor's DPIA, bias testing results, or data protection practices.",
+      "recommendations": [
+        "Add vendor due diligence section to AI policy",
+        "Create AI vendor evaluation checklist",
+        "Retrospectively conduct due diligence on TalentAI Ltd",
+        "Update vendor contracts to include AI-specific requirements"
+      ],
+      "suggested_clause": "Before contracting with any AI vendor whose tools will process personal data, we will: (1) Clarify controller/processor roles and document in the contract; (2) Request the vendor's DPIA or privacy risk assessment; (3) Request bias testing results and accuracy metrics; (4) Confirm data minimisation and retention practices; (5) Verify the vendor does not train models on our data without consent.",
+      "evidence_citations": [
+        {
+          "source_id": "ICO-RECRUIT-AI-2024",
+          "section_id": "ICO-RECRUIT-AI-2024-S2",
+          "quote": "Clarify controller/processor roles and include this in contracts. Ask vendors for DPIA or privacy risk assessment. Request bias testing results and accuracy metrics."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-LAWFUL-BASIS-001",
+      "obligation_title": "Lawful Basis for Processing",
+      "status": "FULL",
+      "risk_level": "low",
+      "policy_element_ids": ["PE-006"],
+      "findings": "Policy adequately addresses lawful basis requirement with commitment to document and review periodically. This obligation is fully met.",
+      "recommendations": [],
+      "suggested_clause": null,
+      "evidence_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S2",
+          "quote": "You must identify a lawful basis before you begin processing personal data."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-GOVERNANCE-001",
+      "obligation_title": "AI Governance Structure",
+      "status": "PARTIAL",
+      "risk_level": "medium",
+      "policy_element_ids": ["PE-007"],
+      "findings": "Basic governance exists with IT Director accountability and approval requirement for high-risk deployments. However, lacks cross-functional oversight, escalation procedures, and broader accountability framework recommended by DSIT principles.",
+      "recommendations": [
+        "Consider establishing cross-functional AI steering committee",
+        "Define clear escalation procedures",
+        "Document RACI matrix for AI governance",
+        "Include board-level reporting for high-risk AI"
+      ],
+      "suggested_clause": null,
+      "evidence_citations": [
+        {
+          "source_id": "DSIT-PRINCIPLES-2024",
+          "section_id": "DSIT-PRINCIPLES-2024-S4",
+          "quote": "Clear lines of accountability for AI outcomes."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-HUMAN-OVERSIGHT-001",
+      "obligation_title": "Human Oversight",
+      "status": "FULL",
+      "risk_level": "low",
+      "policy_element_ids": ["PE-008"],
+      "findings": "Policy requires human review of significant automated decisions. This meets the core requirement for human oversight of high-impact AI decisions.",
+      "recommendations": [],
+      "suggested_clause": null,
+      "evidence_citations": [
+        {
+          "source_id": "ICO-AI-DP-2024",
+          "section_id": "ICO-AI-DP-2024-S2",
+          "quote": "Article 22 rights apply to solely automated decision-making with legal or similarly significant effects."
+        }
+      ]
+    },
+    {
+      "obligation_id": "OBL-BIAS-TESTING-001",
+      "obligation_title": "Bias Testing",
+      "status": "NOT_MET",
+      "risk_level": "high",
+      "policy_element_ids": [],
+      "findings": "No policy coverage for bias testing procedures. While the policy mentions non-discrimination, it does not specify any testing or monitoring procedures. This is a significant gap given the high-risk nature of recruitment AI.",
+      "recommendations": [
+        "Add bias testing requirements to policy",
+        "Define testing frequency (pre-deployment and periodic)",
+        "Specify metrics and thresholds for acceptable bias levels",
+        "Consider independent bias audit for recruitment AI"
+      ],
+      "suggested_clause": "AI systems that make or influence decisions about individuals must be tested for bias before deployment and monitored for fairness over time. For high-risk systems (including recruitment AI), we will: (1) Conduct bias testing across protected characteristics before deployment; (2) Define acceptable bias thresholds; (3) Implement ongoing fairness monitoring; (4) Consider independent bias audits.",
+      "evidence_citations": [
+        {
+          "source_id": "CDEI-ASSURANCE-2023",
+          "section_id": "CDEI-ASSURANCE-2023-S2",
+          "quote": "Regular bias testing helps ensure AI systems treat all groups fairly."
+        },
+        {
+          "source_id": "DSIT-HR-AI-2024",
+          "section_id": "DSIT-HR-AI-2024-S3",
+          "quote": "Consider independent bias audits for high-risk systems."
+        }
+      ]
+    }
+  ],
+  "tier_assessment": {
+    "current_tier": "basic",
+    "target_tier": "enhanced",
+    "gaps_to_close": 3,
+    "notes": "Organisation has basic AI governance in place but needs to address critical gaps in DPIA, vendor due diligence, and bias testing to reach enhanced maturity level."
+  },
+  "priority_actions": [
+    {
+      "priority": "critical",
+      "action": "Complete DPIA for existing TalentAI recruitment system immediately",
+      "obligation_ids": ["OBL-DPIA-RECRUIT-001"],
+      "deadline_suggestion": "Within 30 days"
+    },
+    {
+      "priority": "high",
+      "action": "Conduct due diligence on TalentAI Ltd vendor relationship",
+      "obligation_ids": ["OBL-VENDOR-DD-001"],
+      "deadline_suggestion": "Within 30 days"
+    },
+    {
+      "priority": "high",
+      "action": "Request or conduct bias testing for recruitment AI system",
+      "obligation_ids": ["OBL-BIAS-TESTING-001", "OBL-FAIRNESS-RECRUIT-001"],
+      "deadline_suggestion": "Within 60 days"
+    },
+    {
+      "priority": "medium",
+      "action": "Update AI policy with specific DPIA, vendor due diligence, and bias testing provisions",
+      "obligation_ids": ["OBL-DPIA-RECRUIT-001", "OBL-VENDOR-DD-001", "OBL-BIAS-TESTING-001"],
+      "deadline_suggestion": "Within 90 days"
+    }
+  ]
+}

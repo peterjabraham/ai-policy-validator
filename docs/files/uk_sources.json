@@ -1,0 +1,298 @@
+{
+  "canon_version": "2025-01",
+  "last_updated": "2025-01-27",
+  "sources": [
+    {
+      "source_id": "ICO-AI-DP-2024",
+      "title": "Guidance on AI and data protection",
+      "issuing_body": "ICO",
+      "jurisdiction": "UK",
+      "doc_type": "guidance",
+      "binding_strength": "authoritative",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/",
+      "version": "2024-11",
+      "effective_date": "2024-11-01",
+      "last_checked": "2025-01-27",
+      "sectors": [],
+      "sections": [
+        {
+          "section_id": "ICO-AI-DP-2024-S1",
+          "title": "What is AI?",
+          "path": "Part 1 > The basics",
+          "summary": "Definitions and scope of AI for data protection purposes",
+          "obligation_strength": "informative"
+        },
+        {
+          "section_id": "ICO-AI-DP-2024-S2",
+          "title": "How do we ensure lawfulness in AI?",
+          "path": "Part 1 > Lawfulness",
+          "summary": "Legal bases for AI processing, including Article 22 automated decision-making",
+          "obligation_strength": "must",
+          "key_quotes": [
+            "You must identify a lawful basis before you begin processing personal data.",
+            "You must carry out a DPIA before you begin any type of processing that is likely to result in a high risk."
+          ]
+        },
+        {
+          "section_id": "ICO-AI-DP-2024-S3",
+          "title": "How do we ensure fairness in AI?",
+          "path": "Part 1 > Fairness",
+          "summary": "Fairness considerations, bias mitigation, and non-discrimination",
+          "obligation_strength": "must",
+          "key_quotes": [
+            "You must process personal data fairly.",
+            "Fairness means you should only handle personal data in ways people would reasonably expect."
+          ]
+        },
+        {
+          "section_id": "ICO-AI-DP-2024-S4",
+          "title": "How do we ensure transparency in AI?",
+          "path": "Part 1 > Transparency",
+          "summary": "Transparency obligations including privacy notices and meaningful information about AI logic",
+          "obligation_strength": "must",
+          "key_quotes": [
+            "You must be transparent about how you use personal data.",
+            "You must provide meaningful information about the logic involved in automated decision-making."
+          ]
+        },
+        {
+          "section_id": "ICO-AI-DP-2024-S5",
+          "title": "Accountability and governance",
+          "path": "Part 2 > Accountability",
+          "summary": "Documentation, DPIAs, governance structures for AI",
+          "obligation_strength": "must",
+          "key_quotes": [
+            "You must implement appropriate technical and organisational measures to demonstrate compliance.",
+            "DPIAs should be started at the earliest practicable stage of your project."
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "ICO-RECRUIT-AI-2024",
+      "title": "AI tools in recruitment: audits and recommendations",
+      "issuing_body": "ICO",
+      "jurisdiction": "UK",
+      "doc_type": "audit_report",
+      "binding_strength": "authoritative",
+      "url": "https://ico.org.uk/action-weve-taken/audits-and-overview-reports/2024/11/ai-tools-in-recruitment/",
+      "version": "2024-11",
+      "effective_date": "2024-11-01",
+      "last_checked": "2025-01-27",
+      "sectors": ["all"],
+      "sections": [
+        {
+          "section_id": "ICO-RECRUIT-AI-2024-S1",
+          "title": "Key findings from audits",
+          "path": "Summary",
+          "summary": "ICO findings from auditing AI recruitment tool providers",
+          "obligation_strength": "must",
+          "key_quotes": [
+            "Employers must complete a DPIA before integrating AI in recruitment.",
+            "Concerns about unfair exclusion, inference of protected characteristics, over-collection and retention of personal data."
+          ]
+        },
+        {
+          "section_id": "ICO-RECRUIT-AI-2024-S2",
+          "title": "Recommendations for recruiters",
+          "path": "Recommendations > For recruiters",
+          "summary": "Specific recommendations for organisations using AI in recruitment",
+          "obligation_strength": "should",
+          "key_quotes": [
+            "Clarify controller/processor roles and include this in contracts.",
+            "Ask vendors for DPIA or privacy risk assessment.",
+            "Request bias testing results and accuracy metrics."
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "ICO-RECRUIT-QUESTIONS-2024",
+      "title": "Thinking of using AI to assist recruitment? Our key data protection considerations",
+      "issuing_body": "ICO",
+      "jurisdiction": "UK",
+      "doc_type": "blog",
+      "binding_strength": "authoritative",
+      "url": "https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2024/11/thinking-of-using-ai-to-assist-recruitment-our-key-data-protection-considerations/",
+      "version": "2024-11",
+      "effective_date": "2024-11-01",
+      "last_checked": "2025-01-27",
+      "sectors": ["all"],
+      "sections": [
+        {
+          "section_id": "ICO-RECRUIT-QUESTIONS-2024-S1",
+          "title": "Key questions to ask",
+          "path": "Main content",
+          "summary": "Questions organisations should ask before using AI recruitment tools",
+          "obligation_strength": "should",
+          "key_quotes": [
+            "Have you completed a DPIA?",
+            "What is your lawful basis for this processing?",
+            "How will you inform candidates about the use of AI?"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "DSIT-HR-AI-2024",
+      "title": "Responsible AI in Recruitment",
+      "issuing_body": "DSIT",
+      "jurisdiction": "UK",
+      "doc_type": "guidance",
+      "binding_strength": "recommended",
+      "url": "https://www.gov.uk/government/publications/responsible-ai-in-recruitment-guide/responsible-ai-in-recruitment",
+      "version": "2024-03",
+      "effective_date": "2024-03-25",
+      "last_checked": "2025-01-27",
+      "sectors": ["all"],
+      "sections": [
+        {
+          "section_id": "DSIT-HR-AI-2024-S1",
+          "title": "Why this guidance matters",
+          "path": "Introduction",
+          "summary": "Context for responsible AI use in HR",
+          "obligation_strength": "informative"
+        },
+        {
+          "section_id": "DSIT-HR-AI-2024-S2",
+          "title": "Before you procure",
+          "path": "Guidance > Pre-procurement",
+          "summary": "Steps to take before acquiring AI recruitment tools",
+          "obligation_strength": "must",
+          "key_quotes": [
+            "You must complete a DPIA for the AI system.",
+            "Where the DPIA identifies high risks that cannot be mitigated, consult the ICO."
+          ]
+        },
+        {
+          "section_id": "DSIT-HR-AI-2024-S3",
+          "title": "Assurance mechanisms",
+          "path": "Guidance > Assurance",
+          "summary": "Using AI assurance techniques in recruitment",
+          "obligation_strength": "should",
+          "key_quotes": [
+            "Use assurance mechanisms like DPIAs to address fairness, transparency, and accountability.",
+            "Consider independent bias audits for high-risk systems."
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "CDEI-ASSURANCE-2023",
+      "title": "Portfolio of AI Assurance Techniques",
+      "issuing_body": "CDEI",
+      "jurisdiction": "UK",
+      "doc_type": "guidance",
+      "binding_strength": "recommended",
+      "url": "https://www.gov.uk/guidance/portfolio-of-ai-assurance-techniques",
+      "version": "2023-12",
+      "effective_date": "2023-12-01",
+      "last_checked": "2025-01-27",
+      "sectors": [],
+      "sections": [
+        {
+          "section_id": "CDEI-ASSURANCE-2023-S1",
+          "title": "Impact assessments",
+          "path": "Techniques > Assessment",
+          "summary": "Various forms of AI impact assessment",
+          "obligation_strength": "should",
+          "key_quotes": [
+            "Impact assessments help identify and mitigate risks before deployment."
+          ]
+        },
+        {
+          "section_id": "CDEI-ASSURANCE-2023-S2",
+          "title": "Bias audits",
+          "path": "Techniques > Testing",
+          "summary": "Testing AI systems for bias and fairness",
+          "obligation_strength": "should",
+          "key_quotes": [
+            "Regular bias testing helps ensure AI systems treat all groups fairly."
+          ]
+        },
+        {
+          "section_id": "CDEI-ASSURANCE-2023-S3",
+          "title": "Model cards and documentation",
+          "path": "Techniques > Documentation",
+          "summary": "Documentation standards for AI systems",
+          "obligation_strength": "should",
+          "key_quotes": [
+            "Model cards provide transparency about AI system capabilities and limitations."
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "DSIT-PRINCIPLES-2024",
+      "title": "Implementing the UK's AI regulatory principles: Initial guidance for regulators",
+      "issuing_body": "DSIT",
+      "jurisdiction": "UK",
+      "doc_type": "guidance",
+      "binding_strength": "authoritative",
+      "url": "https://www.gov.uk/government/publications/implementing-the-uks-ai-regulatory-principles-initial-guidance-for-regulators/implementing-the-uks-ai-regulatory-principles-initial-guidance-for-regulators",
+      "version": "2024-02",
+      "effective_date": "2024-02-01",
+      "last_checked": "2025-01-27",
+      "sectors": [],
+      "sections": [
+        {
+          "section_id": "DSIT-PRINCIPLES-2024-S1",
+          "title": "Safety, security and robustness",
+          "path": "Principles",
+          "summary": "AI systems should function safely and securely",
+          "obligation_strength": "should"
+        },
+        {
+          "section_id": "DSIT-PRINCIPLES-2024-S2",
+          "title": "Appropriate transparency and explainability",
+          "path": "Principles",
+          "summary": "AI systems should be appropriately transparent",
+          "obligation_strength": "should"
+        },
+        {
+          "section_id": "DSIT-PRINCIPLES-2024-S3",
+          "title": "Fairness",
+          "path": "Principles",
+          "summary": "AI systems should not discriminate unfairly",
+          "obligation_strength": "should"
+        },
+        {
+          "section_id": "DSIT-PRINCIPLES-2024-S4",
+          "title": "Accountability and governance",
+          "path": "Principles",
+          "summary": "Clear lines of accountability for AI outcomes",
+          "obligation_strength": "should"
+        },
+        {
+          "section_id": "DSIT-PRINCIPLES-2024-S5",
+          "title": "Contestability and redress",
+          "path": "Principles",
+          "summary": "Ability to challenge AI decisions",
+          "obligation_strength": "should"
+        }
+      ]
+    },
+    {
+      "source_id": "ICO-INTERNAL-AI-2024",
+      "title": "ICO Internal AI Use Policy",
+      "issuing_body": "ICO",
+      "jurisdiction": "UK",
+      "doc_type": "guidance",
+      "binding_strength": "informative",
+      "url": "https://ico.org.uk/media2/4ojobuwe/internal-ai-use-policy.pdf",
+      "version": "2024",
+      "effective_date": "2024-01-01",
+      "last_checked": "2025-01-27",
+      "sectors": [],
+      "sections": [
+        {
+          "section_id": "ICO-INTERNAL-AI-2024-S1",
+          "title": "Policy structure example",
+          "path": "Full document",
+          "summary": "Example of how a regulator structures its own AI policy",
+          "obligation_strength": "informative"
+        }
+      ]
+    }
+  ]
+}
